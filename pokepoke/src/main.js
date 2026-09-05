@@ -1,3 +1,4 @@
+import './style.css';
 import axios from 'axios';
 
 // DOM要素を取得
@@ -52,14 +53,19 @@ function renderPokemon(data) {
   const typeNames = data.types.map((t) => t.type.name);
   const typeText = typeNames.join(", ");
 
-  // ステータス名と数値をカンマ区切りの文字列に変換
-  const statsNames = data.stats.map((s) => `${s.stat.name}: ${s.base_stat}`);
-  const statsText = statsNames.join(", ");
+  // ステータスを1項目ずつ<li>に変換
+  const statsList = data.stats
+    .map((s) => `<li>${s.stat.name}: ${s.base_stat}</li>`)
+    .join("");
 
   return `
-    <h2>${data.name}</h2>
-    <img src="${data.sprites.front_default}" alt="${data.name}">
-    <p>タイプ: ${typeText}</p>
-    <p>ステータス: ${statsText}</p>
+    <div class="pokemon-card">
+      <h2>${data.name}</h2>
+      <img src="${data.sprites.front_default}" alt="${data.name}">
+      <p>タイプ: ${typeText}</p>
+      <ul class="stats-list">
+        ${statsList}
+      </ul>
+    </div>
   `;
 }
