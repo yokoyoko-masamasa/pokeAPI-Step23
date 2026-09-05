@@ -4,10 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pokepoke</title>
+    <title>ポケモン比較ツール</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <h1>ポケモン比較ツール</h1>
+
+      <div class="search-area">
+        <input type="text" id="pokemon1-input" placeholder="ポケモン1 (例: pikachu)">
+        <input type="text" id="pokemon2-input" placeholder="ポケモン2 (例: pikachu)">
+
+        <button type="button" id="compare-btn">比較する</button>
+      </div>
+
+      <div class="result-container">
+        <div id="result-1"></div>
+        <div id="result-2"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
