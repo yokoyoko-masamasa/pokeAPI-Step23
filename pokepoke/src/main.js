@@ -10,33 +10,20 @@ const result2 = document.getElementById('result-2');
 
 // 比較ボタン押下時の処理
 compareBtn.addEventListener('click', async () => {
-  // 入力値を取得
-  const poke1 = pokemon1Input.value;
-  const poke2 = pokemon2Input.value;
-
-  // PokeAPI検索用に小文字へ変換
-  let poke1komo = poke1.toLowerCase();
-  let poke2komo = poke2.toLowerCase();
+  // 入力値を取得し、小文字に変換
+  const poke1Lower = pokemon1Input.value.toLowerCase();
+  const poke2Lower = pokemon2Input.value.toLowerCase();
 
   // 2匹分のデータを同時取得
-  const [res1, res2] = await Promise.all([fetchPokemon(poke1komo), fetchPokemon(poke2komo)]);
+  const [res1, res2] = await Promise.all([fetchPokemon(poke1Lower), fetchPokemon(poke2Lower)]);
 
-  // res1を表示 or エラー表示
-  if (!res1) {
-    result1.innerHTML = "ポケモンが見つかりませんでした";
-  } else {
-    result1.innerHTML = renderPokemon(res1);
-  }
+  // 結果を画面に表示
+  displayResult(result1, res1);
+  displayResult(result2, res2);
 
-  // res2を表示 or エラー表示
-  if (!res2) {
-    result2.innerHTML = "ポケモンが見つかりませんでした";
-  } else {
-    result2.innerHTML = renderPokemon(res2);
-  }
 });
 
-// PokeAPIから1匹分のデータを取得
+// pokeAPIから1匹分のデータを取得
 async function fetchPokemon(name) {
   try {
     const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
@@ -68,4 +55,13 @@ function renderPokemon(data) {
       </ul>
     </div>
   `;
+}
+
+// 結果処理
+function displayResult(resultElement, data) {
+  if (!data) {
+    resultElement.innerHTML = '<p class="error-message">ポケモンが見つかりませんでした</p>';
+  } else {
+    resultElement.innerHTML = renderPokemon(data);
+  }
 }
